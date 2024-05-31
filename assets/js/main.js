@@ -79,28 +79,36 @@ sr.reveal('.contact__text', {interval: 200})
 sr.reveal('.contact__input', {delay: 400})
 sr.reveal('.contact__button', {delay: 600})
 
-document.getElementById('contactForm').addEventListener('submit', function(event) {
-
-    event.preventDefault();
-    
-
-    var name = document.getElementById('name').value.trim();
-    var email = document.getElementById('email').value.trim();
-    var message = document.getElementById('message').value.trim();
-
-    
-    if (name === '' || email === '' || message === '') {
-        alert('Please fill in all fields');
-        return false;
-    }
-
-    
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert('Please enter a valid email address');
-        return false;
-    }
 
 
-    alert('Form submitted successfully');
-})
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (name === "" || email === "" || message === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // If all validations pass, you can submit the form
+            alert("Form submitted successfully!");
+            form.reset();
+        });
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    });
+
